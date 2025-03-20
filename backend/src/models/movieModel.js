@@ -1,18 +1,15 @@
 const db = require("../config/db");
 
-// Get all movies
+
 const getAllMovies = async () => {
     const [movies] = await db.query("SELECT * FROM movies");
     return movies;
 };
-
-// Get a single movie by ID
 const getMovieById = async (movieId) => {
     const [movie] = await db.query("SELECT * FROM movies WHERE movie_id = ?", [movieId]);
     return movie.length > 0 ? movie[0] : null;
 };
 
-// Add a new movie
 const addMovie = async (movieData) => {
     const { 
         title, description, duration, language, genre_id, 
@@ -28,7 +25,6 @@ const addMovie = async (movieData) => {
     );
 };
 
-// Delete a movie by ID
 const deleteMovie = async (movieId) => {
     await db.query("DELETE FROM movies WHERE movie_id = ?", [movieId]);
 };
