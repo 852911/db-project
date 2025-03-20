@@ -3,12 +3,11 @@ const db = require("../config/db");
 const Show = {
 
 
-    // ✅ Get all shows
     async getAllShows() {
         const [rows] = await db.query(`SELECT * FROM shows`);
         return rows;
     },
-    //check if hall exists/////
+
     async findHall(hall_id){
         const [rows] = await db.query("SELECT * FROM halls WHERE hall_id = ?", [hall_id]);
         return rows.length ? rows[0] : null;
@@ -20,22 +19,19 @@ const Show = {
                 FROM venues v
                 WHERE v.venue_id = (SELECT h.venue_id FROM halls h WHERE h.hall_id = ?)
             `, [hall_id]);
-    
-            // If hall doesn't exist, treat it as "inactive"
+
             return rows.length ? rows[0].status : "inactive";
     
         } catch (error) {
             console.error("❌ Error fetching venue status:", error);
-            return "inactive"; // Treat errors as "inactive" to prevent crashes
+            return "inactive"; 
         }
     },    
-    // ✅ Check the status of the venue and hall before placing a show
     async getStatus(hall_id) {
         try {
-            // ✅ First, check if the hall exists
             const [hallExists] = await db.query(`SELECT venue_id, status FROM halls WHERE hall_id = ?`, [hall_id]);
     
-            console.log("Hall Query Result:", hallExists); // Debugging log
+            //console.log("Hall Query Result:", hallExists); 
     
             if (!hallExists.length) {
                 return { status: "inactive", message: "Invalid hall ID: No such hall exists." };
@@ -44,14 +40,13 @@ const Show = {
             const venue_id = hallExists[0].venue_id; 
             const hallStatus = hallExists[0].status;
     
-            // ✅ Check if the venue is active
             const [venueStatusResult] = await db.query(`
                 SELECT status 
                 FROM venues 
                 WHERE venue_id = ?
             `, [venue_id]);
     
-            console.log("Venue Status Query Result:", venueStatusResult); // Debugging log
+            //console.log("Venue Status Query Result:", venueStatusResult);
     
             if (!venueStatusResult.length) {
                 return { status: "inactive", message: "Venue not found for the given hall." };
@@ -62,7 +57,6 @@ const Show = {
                 return { status: "inactive", message: "The chosen venue is currently inactive" };
             }
     
-            // ✅ Check if the hall is inactive
             if (hallStatus === "inactive" || hallStatus === "maintenance") {
                 return { status: "inactive", message: "The selected hall is currently inactive or under maintenance" };
             }
@@ -73,19 +67,15 @@ const Show = {
             console.error("Error checking venue and hall status:", error);
             return { status: "inactive", message: "Server error while checking status" };
         }
-    }
+    },
     
-    ,    
-      // ✅ Create a new show
-      async createShow(movie_id, hall_id, show_date, start_time, end_time, base_price, status) {
+    async createShow(movie_id, hall_id, show_date, start_time, end_time, base_price, status) {
         try {
-            // Check if hall exists
             const [hallCheck] = await db.query(`SELECT * FROM halls WHERE hall_id = ?`, [hall_id]);
             if (hallCheck.length === 0) {
                 return { success: false, message: "Invalid hall_id: No such hall exists." };
             }
     
-            // Proceed with inserting show if hall exists
             const [result] = await db.query(`
                 INSERT INTO shows (movie_id, hall_id, show_date, start_time, end_time, base_price, status) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)
