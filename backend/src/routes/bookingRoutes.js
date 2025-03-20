@@ -6,10 +6,7 @@ const adminMiddleware = require("../middlewares/adminMiddleware");
 const Booking = require('../models/bookingModel');
 
 
-// ✅ View all bookings (Admin only)
-//tested...
-
-
+//tested..
 router.get("/getbookings", authMiddleware, adminMiddleware, async (req, res) => {
     try {
         const bookings = await Booking.getAllBookings();
@@ -24,8 +21,7 @@ router.get("/getbookings", authMiddleware, adminMiddleware, async (req, res) => 
 });
 
 
-//GET /bookings/:id → View details of a specific booking
-//to be tested not complete..
+// not tested.........
 router.get('/getbooking/:id',authMiddleware, adminMiddleware, async (req, res)=>{
     try {
         const {id} = req.params;
@@ -41,7 +37,6 @@ router.get('/getbooking/:id',authMiddleware, adminMiddleware, async (req, res)=>
 });
 
 //creating a route that the user would be able to book setas for a movie/show
-// ✅ Create a new booking (User only)
 router.post('/createbooking', authMiddleware, async (req, res) => {
     try {
         console.log("User Info:", req.user); // Debugging
