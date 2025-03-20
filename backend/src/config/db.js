@@ -10,8 +10,8 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-const db = pool.promise();  // ✅ This ensures promise-based queries
+const db = pool.promise();
 
-console.log("Database pool initialized successfully!"); // Debugging
+//console.log("Database pool initialized successfully!");
 
 module.exports = db;
