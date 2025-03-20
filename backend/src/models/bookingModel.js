@@ -1,6 +1,6 @@
 const db = require("../config/db");
 
-
+// this code is not fully tested yet...........
 const booking = {
     async getAllBookings(){
         const [rows] = await db.query("SELECT * FROM bookings"); 
@@ -10,8 +10,6 @@ const booking = {
         const [row] = await db.query("SELECT * FROM bookings WHERE booking_id = ?",[id]); 
         return row;
     },
-    // ✅ Check seat availability
- // ✅ Check seat availability
  async checkSeatAvailability(show_id, seats) {
     try {
         const query = `
