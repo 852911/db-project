@@ -1,0 +1,27 @@
+//user register
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "password123",
+  "full_name": "Test User",
+  "phone_number": "1234567890",
+  "role": "user"
+}
+
+{
+  "title": "New Movie",
+  "description": "An amazing movie",
+  "duration": 120,
+  "language": "English",
+  "genre_id": 1,
+  "release_date": "2024-01-01",
+  "end_date": "2024-12-31",
+  "rating": 8.5,
+  "poster_url": "http://example.com/poster.jpg",
+  "trailer_url": "http://example.com/trailer.mp4",
+  "status": "active"
+}
+
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMSwiZW1haWwiOiJ0ZXN0dXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQyMDEyMjczLCJleHAiOjE3NDIwMTU4NzN9.igOxuUCDtXVEsfKyzX-ftgsfavq92c-1WAGLiz-dT5Y
