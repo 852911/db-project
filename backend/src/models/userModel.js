@@ -1,4 +1,4 @@
-const db = require('../config/db'); // ✅ Ensure correct import
+const db = require('../config/db'); 
 const bcrypt = require('bcrypt');
 
 const User = {
@@ -6,11 +6,11 @@ const User = {
         const hashedPassword = await bcrypt.hash(password, 10);
         const sql = `INSERT INTO users (username, email, password_hash, full_name, phone_number, role) 
                      VALUES (?, ?, ?, ?, ?, ?)`;
-        return db.query(sql, [username, email, hashedPassword, full_name, phone_number, role]);  // ✅ FIXED
+        return db.query(sql, [username, email, hashedPassword, full_name, phone_number, role]);  
     },
 
     async findByUsername(username) {
-        const [rows] = await db.query("SELECT user_id FROM users WHERE username = ?", [username]); // ✅ FIXED
+        const [rows] = await db.query("SELECT user_id FROM users WHERE username = ?", [username]); 
         return rows;
     },
 
@@ -20,7 +20,6 @@ const User = {
     },
 
     async findById(userId) {
-        // Fetch user details
         const [userRows] = await db.query(
             "SELECT user_id, username, email, full_name, phone_number, created_at, role FROM users WHERE user_id = ?",
             [userId]
@@ -28,7 +27,6 @@ const User = {
     
         if (userRows.length === 0) return null;
     
-        // Fetch user bookings
         const [bookings] = await db.query(
             "SELECT booking_id, user_id, show_id, booking_date, total_amount, status, payment_status FROM bookings WHERE user_id = ?",
             [userId]
@@ -49,7 +47,7 @@ const User = {
         query += fields.join(", ") + " WHERE user_id = ?";
         values.push(userId);
 
-        return db.query(query, values); // ✅ FIXED
+        return db.query(query, values);
     }
 };
 
