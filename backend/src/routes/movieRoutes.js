@@ -4,7 +4,6 @@ const { getAllMovies, getMovieById, addMovie, deleteMovie } = require("../models
 const authMiddleware = require("../middlewares/authMiddleware");
 const adminMiddleware = require("../middlewares/adminMiddleware");
 
-// Get all movies (Public route)
 //tested......
 router.get("/getmovies", async (req, res) => {
     try {
@@ -15,7 +14,6 @@ router.get("/getmovies", async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
-// Admin: Add a new movie
 //tested..............
 router.post("/addmovie", authMiddleware, adminMiddleware, async (req, res) => {
     try {
@@ -33,7 +31,6 @@ router.post("/addmovie", authMiddleware, adminMiddleware, async (req, res) => {
     }
 });
 
-// Admin: Delete a movie
 // Delete a movie by ID
 router.delete("/deletemovie/:id", authMiddleware, adminMiddleware, async (req, res) => {
     try {
@@ -56,7 +53,9 @@ router.delete("/deletemovie/:id", authMiddleware, adminMiddleware, async (req, r
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
-// Get a specific movie by ID
+
+
+
 //tested...
 router.get("/getmovie/:id", async (req, res) => {
     try {
